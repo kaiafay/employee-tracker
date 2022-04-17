@@ -57,18 +57,39 @@ const mainPrompts = () => {
 };
 
 // function for view all departments
+const viewAllDepartments = () => {
+
+};
 
 // function for view all roles
+const viewAllRoles = () => {
+
+};
 
 // function for view all employees
+const viewAllEmployees = () => {
+
+};
 
 // function for add a department
+const addDepartment = () => {
+
+};
 
 // function for add a role
+const addRole = () => {
+
+};
 
 // function for add an employee
+const addEmployee = () => {
+
+};
 
 // function for update an employee role
+const updateEmployee = () => {
+
+};
 
 // function that quits application
 const quit = () => {
