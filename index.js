@@ -71,3 +71,7 @@ const mainPrompts = () => {
 // function for update an employee role
 
 // function that quits application
+const quit = () => {
+    console.log('Goodbye!');
+    process.exit();
+};
