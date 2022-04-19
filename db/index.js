@@ -2,3 +2,23 @@
 const connection = require('./connection');
 
 // class that holds all methods
+class DB {
+    // references the connection 
+    constructor(connection) {
+        this.connection = connection;
+    }
+
+    // find all departments method
+
+    // find all roles method
+
+    // find all employees method
+
+    // add department method
+
+    // add role method
+
+    // add employee method
+
+    // update employee role method
+};
