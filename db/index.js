@@ -9,6 +9,9 @@ class DB {
     }
 
     // find all departments method
+    findAllDepartments() {
+        return this.connection.promise().query("SELECT department.id, department.name AS department FROM department");
+    };
 
     // find all roles method
 
