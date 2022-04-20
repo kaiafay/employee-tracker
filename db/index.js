@@ -10,10 +10,14 @@ class DB {
 
     // find all departments method
     findAllDepartments() {
-        return this.connection.promise().query("SELECT department.id, department.name AS department FROM department");
+        return this.connection.promise().query("SELECT department.id, department.name AS department FROM department;");
     };
 
     // find all roles method
+    findAllRoles() {
+        return this.connection.promise().query("SELECT role.id, role.title AS job_title, department.name AS department, role.salary FROM role LEFT JOIN department on role.department_id = department_id;");
+    };
+
 
     // find all employees method
 
