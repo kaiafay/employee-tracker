@@ -57,7 +57,12 @@ const mainPrompts = () => {
 
 // function for view all departments
 const viewAllDepartments = () => {
-
+    db.findAllDepartments()
+        .then(([rows]) => {
+            let departments = rows;
+            console.table(departments);
+        })
+        .then(() => mainPrompts());
 };
 
 // function for view all roles
