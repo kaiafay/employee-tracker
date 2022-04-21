@@ -6,7 +6,7 @@ class DB {
     // references the connection 
     constructor(connection) {
         this.connection = connection;
-    }
+    };
 
     // find all departments method
     findAllDepartments() {
@@ -40,4 +40,7 @@ class DB {
     };
 
     // update employee role method
+    updateEmployee(employeeId, roleId) {
+        return this.connection.promise().query("UPDATE employee SET role_id = ? WHERE id = ?", [roleId, employeeId]);
+    };
 };
