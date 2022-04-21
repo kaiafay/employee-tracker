@@ -3,7 +3,6 @@ const inquirer = require('inquirer');
 const db = require('./db');
 require('console.table');
 
-
 // function that holds prompts
 const mainPrompts = () => {
     console.log("Welcome to Employee Tracker!");
@@ -68,7 +67,12 @@ const viewAllRoles = () => {
 
 // function for view all employees
 const viewAllEmployees = () => {
-
+    db.findAllEmployees()
+        .then(([rows]) => {
+            let employees = rows;
+            console.table(employees);
+        })
+        .then(() => mainPrompts());
 };
 
 // function for add a department
@@ -96,3 +100,5 @@ const quit = () => {
     console.log('Goodbye!');
     process.exit();
 };
+
+mainPrompts();
