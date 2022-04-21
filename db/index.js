@@ -30,6 +30,9 @@ class DB {
     };
 
     // add role method
+    addRole() {
+        return this.connection.promise().query("INSERT INTO role SET ?", role);
+    };
 
     // add employee method
 
