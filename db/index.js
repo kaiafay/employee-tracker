@@ -25,6 +25,9 @@ class DB {
     };
 
     // add department method
+    addDepartment() {
+        return this.connection.promise().query("INSERT INTO department SET ?", department);
+    };
 
     // add role method
 
