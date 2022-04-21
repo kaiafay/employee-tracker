@@ -62,7 +62,12 @@ const viewAllDepartments = () => {
 
 // function for view all roles
 const viewAllRoles = () => {
-
+    db.findAllRoles()
+        .then(([rows]) => {
+            let roles = rows;
+            console.table(roles);
+        })
+        .then(() => mainPrompts());
 };
 
 // function for view all employees
