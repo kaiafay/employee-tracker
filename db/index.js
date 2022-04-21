@@ -44,3 +44,5 @@ class DB {
         return this.connection.promise().query("UPDATE employee SET role_id = ? WHERE id = ?", [roleId, employeeId]);
     };
 };
+
+module.exports = new DB(connection);
