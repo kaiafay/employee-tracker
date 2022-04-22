@@ -58,6 +58,7 @@ const mainPrompts = () => {
 // function for view all departments
 const viewAllDepartments = () => {
     db.findAllDepartments()
+        // parse the query for readability 
         .then(([rows]) => {
             let departments = rows;
             console.table(departments);
@@ -72,6 +73,7 @@ const viewAllRoles = () => {
             let roles = rows;
             console.table(roles);
         })
+        // send user back to prompts
         .then(() => mainPrompts());
 };
 
@@ -103,7 +105,39 @@ const addDepartment = () => {
 
 // function for add a role
 const addRole = () => {
+    db.findAllDepartments()
+        .then(([rows]) => {
+            let departments = rows;
+            // map through departments and turn them into an array
+            const departmentNames = departments.map(({ id, name }) => ({
+                name: name,
+                value: id
+            }));
 
+            // prompt user for role information
+            inquirer.prompt([
+                {
+                    name: 'title',
+                    message: 'What is the name of the role?'
+                },
+                {
+                    name: 'salary',
+                    message: 'What is the salary of the role?'
+                },
+                {
+                    type: 'list',
+                    name: 'department_id',
+                    message: 'Which department does the role belong to?',
+                    // not displaying department names
+                    choices: departmentNames
+                }
+            ])
+            .then(role => {
+                db.addRole(role)
+                .then(() => console.log(`Added ${role.title} to the database successfully!`))
+                .then(() => mainPrompts());
+            });
+        });
 };
 
 // function for add an employee
