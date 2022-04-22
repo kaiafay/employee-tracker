@@ -87,7 +87,18 @@ const viewAllEmployees = () => {
 
 // function for add a department
 const addDepartment = () => {
-
+    inquirer.prompt([
+        {
+            name: 'name',
+            message: 'What is the name of the department?'
+        }
+    ])
+    .then(res => {
+        let name = res;
+        db.addDepartment(name)
+            .then(() => console.log(`Added ${name.name} to the database successfully!`))
+            .then(() => mainPrompts());
+    });
 };
 
 // function for add a role
