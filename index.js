@@ -213,7 +213,46 @@ const addEmployee = () => {
 
 // function for update an employee role
 const updateEmployee = () => {
+    db.findAllEmployees()
+        .then(([rows]) => {
+            let employees = rows;
+            const employeeNames = employees.map(({ id, first_name, last_name }) => ({
+                name: `${first_name} ${last_name}`,
+                value: id
+            }));
 
+            inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'employee',
+                    message: "Which employee's role do you want to update?",
+                    choices: employeeNames
+                }
+            ])
+            .then(res => {
+                let employee = res.employee
+                db.findAllRoles()
+                    .then(([rows]) => {
+                        let roles = rows;
+                        const roleNames = roles.map(({ id, job_title }) => ({
+                            name: job_title,
+                            value: id
+                        }));
+
+                        inquirer.prompt([
+                            {
+                                type: 'list',
+                                name: 'role',
+                                message: "Which role do you want to assign to the selected employee?",
+                                choices: roleNames
+                            }
+                        ])
+                        .then(res => db.updateEmployee(employee, res.role))
+                        .then(() => console.log("Updated employee's role successfully!"))
+                        .then(() => mainPrompts());
+                    });
+            });
+        });
 };
 
 // function that quits application
