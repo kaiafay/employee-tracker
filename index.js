@@ -52,7 +52,7 @@ const mainPrompts = () => {
                 default:
                     quit();
             }
-        })
+        });
 };
 
 // function for view all departments
@@ -108,9 +108,10 @@ const addRole = () => {
     db.findAllDepartments()
         .then(([rows]) => {
             let departments = rows;
+
             // map through departments and turn them into an array
-            const departmentNames = departments.map(({ id, name }) => ({
-                name: name,
+            const departmentNames = departments.map(({ id, department }) => ({
+                name: department,
                 value: id
             }));
 
@@ -128,7 +129,6 @@ const addRole = () => {
                     type: 'list',
                     name: 'department_id',
                     message: 'Which department does the role belong to?',
-                    // not displaying department names
                     choices: departmentNames
                 }
             ])
@@ -142,7 +142,73 @@ const addRole = () => {
 
 // function for add an employee
 const addEmployee = () => {
+    inquirer.prompt([
+        {
+            name: 'first_name',
+            message: "What is the employee's first name?"
+        },
+        {
+            name: 'last_name',
+            message: "What is the employee's last name?"
+        }
+    ])
+    .then(res => {
+        let firstName = res.first_name;
+        let lastName = res.last_name;
 
+        db.findAllRoles()
+            .then(([rows]) => {
+                let roles = rows;
+                const roleNames = roles.map(({ id, job_title }) => ({
+                    name: job_title,
+                    value: id
+                }));
+                inquirer.prompt([
+                    {
+                        type: 'list',
+                        name: 'role',
+                        message: "What is the employee's role?",
+                        choices: roleNames
+                    }
+                ])
+                .then(res => {
+                    let role = res.role;
+
+                    db.findAllEmployees()
+                        .then(([rows]) => {
+                            let employees = rows;
+                            const managerNames = employees.map(({ id, first_name, last_name }) => ({
+                                name: `${first_name} ${last_name}`,
+                                value: id
+                            }));
+
+                            // add 'none' to manager choices
+                            managerNames.unshift({ name: 'None', value: null });
+
+                            inquirer.prompt([
+                                {
+                                    type: 'list',
+                                    name: 'manager',
+                                    message: "Who is the employee's manager?",
+                                    choices: managerNames
+                                }
+                            ])
+                            .then(res => {
+                                let employee = {
+                                    manager_id: res.manager,
+                                    role_id: role,
+                                    first_name: firstName,
+                                    last_name: lastName
+                                }
+
+                                db.addEmployee(employee)
+                                .then(() => console.log(`Added ${firstName} ${lastName} to the database successfully!`))
+                                .then(() => mainPrompts());
+                            });
+                        });
+                });
+            });
+    });
 };
 
 // function for update an employee role
