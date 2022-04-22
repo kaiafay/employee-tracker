@@ -15,7 +15,7 @@ class DB {
 
     // find all roles method
     findAllRoles() {
-        return this.connection.promise().query("SELECT role.id, role.title AS job_title, department.name AS department, role.salary FROM role LEFT JOIN department on role.department_id = department_id;");
+        return this.connection.promise().query("SELECT role.id, role.title AS job_title, department.name AS department, role.salary FROM role LEFT JOIN department on role.department_id = department.id;");
     };
 
 
