@@ -19,6 +19,7 @@ const mainPrompts = () => {
                     'Add a department',
                     'Delete a department',
                     'Add a role',
+                    'Delete a role',
                     'Add an employee',
                     "Update an employee's role",
                     "Update an employee's manager",
@@ -47,6 +48,9 @@ const mainPrompts = () => {
                     break;
                 case 'Add a role':
                     addRole();
+                    break;
+                case 'Delete a role':
+                    deleteRole();
                     break;
                 case 'Add an employee':
                     addEmployee();
