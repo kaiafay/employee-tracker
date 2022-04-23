@@ -53,6 +53,11 @@ class DB {
         return this.connection.promise().query("INSERT INTO employee SET ?", employee);
     };
 
+    // delete employee method
+    deleteEmployee(employeeId) {
+        return this.connection.promise().query("DELETE FROM employee WHERE id = ?", employeeId);
+    };
+
     // update employee role method
     updateEmployeeRole(employeeId, roleId) {
         return this.connection.promise().query("UPDATE employee SET role_id = ? WHERE id = ?", [roleId, employeeId]);
