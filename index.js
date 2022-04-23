@@ -261,6 +261,46 @@ const updateEmployeeRole = () => {
 
 // function for update an employee manager
 const updateEmployeeManager = () => {
+    db.findAllEmployees()
+        .then(([rows]) => {
+            let employees = rows;
+            const employeeNames = employees.map(({ id, first_name, last_name }) => ({
+                name: `${first_name} ${last_name}`,
+                value: id
+            }));
+
+            inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'employee',
+                    message: "Which employee's manager do you want to update?",
+                    choices: employeeNames
+                }
+            ])
+            .then(res => {
+                let employee = res.employee
+                db.findAllManagers(employee)
+                    .then(([rows]) => {
+                        let managers = rows;
+                        const managerNames = managers.map(({ id, first_name, last_name }) => ({
+                            name: `${first_name} ${last_name}`,
+                            value: id
+                        }));
+
+                        inquirer.prompt([
+                            {
+                                type: 'list',
+                                name: 'manager',
+                                message: "Which manager do you want to assign to the selected employee?",
+                                choices: managerNames
+                            }
+                        ])
+                        .then(res => db.updateEmployeeManager(employee, res.manager))
+                        .then(() => console.log("Updated employee's manager successfully!"))
+                        .then(() => mainPrompts());
+                    });
+            });
+        });
 
 };
 
