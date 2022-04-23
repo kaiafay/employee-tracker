@@ -47,8 +47,11 @@ const mainPrompts = () => {
                 case 'Add an employee':
                     addEmployee();
                     break;
-                case 'Update an employee role':
-                    updateEmployee();
+                case "Update an employee's role":
+                    updateEmployeeRole();
+                    break;
+                case "Update an employee's manager":
+                    updateEmployeeManager();
                     break;
                 default:
                     quit();
@@ -213,7 +216,7 @@ const addEmployee = () => {
 };
 
 // function for update an employee role
-const updateEmployee = () => {
+const updateEmployeeRole = () => {
     db.findAllEmployees()
         .then(([rows]) => {
             let employees = rows;
@@ -248,13 +251,19 @@ const updateEmployee = () => {
                                 choices: roleNames
                             }
                         ])
-                        .then(res => db.updateEmployee(employee, res.role))
+                        .then(res => db.updateEmployeeRole(employee, res.role))
                         .then(() => console.log("Updated employee's role successfully!"))
                         .then(() => mainPrompts());
                     });
             });
         });
 };
+
+// function for update an employee manager
+const updateEmployeeManager = () => {
+
+};
+
 
 // function that quits application
 const quit = () => {
