@@ -281,6 +281,30 @@ const addEmployee = () => {
     });
 };
 
+// function for delete an employee
+const deleteEmployee = () => {
+    db.findAllEmployees()
+        .then(([rows]) => {
+            let employees = rows;
+            const employeeNames = employees.map(({ id, first_name, last_name }) => ({
+                name: `${first_name} ${last_name}`,
+                value: id
+            }));
+
+            inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'employee',
+                    message: "Which employee would you like to remove?",
+                    choices: employeeNames
+                }
+            ])
+            .then(res => db.deleteEmployee(res.employee))
+            .then(() => console.log('Removed employee from the database successfully!'))
+            .then(() => mainPrompts());
+    });
+};
+
 // function for update an employee role
 const updateEmployeeRole = () => {
     db.findAllEmployees()
