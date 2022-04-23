@@ -13,5 +13,6 @@ Built With: <br />
 4. Enter the command `node index.js` to initiate the application. 
 
 ## Demo
-Link to video demonstration: (link will go here) <br />
-(Video will go here)
+Link to video demonstration: [Employee Tracker Walkthrough](https://drive.google.com/file/d/16IdSJC4Gfy3T-0_MWrFZ281LiTTfyAqo/view)
+
+![Video that demonstrates usage of the employee tracker application](video/walkthrough-employeetracker.gif)
