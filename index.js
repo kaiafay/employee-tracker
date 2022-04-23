@@ -21,6 +21,7 @@ const mainPrompts = () => {
                     'Add a role',
                     'Delete a role',
                     'Add an employee',
+                    'Delete an employee',
                     "Update an employee's role",
                     "Update an employee's manager",
                     'Quit'
@@ -54,6 +55,9 @@ const mainPrompts = () => {
                     break;
                 case 'Add an employee':
                     addEmployee();
+                    break;
+                case 'Delete an employee':
+                    deleteEmployee();
                     break;
                 case "Update an employee's role":
                     updateEmployeeRole();
