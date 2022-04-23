@@ -99,6 +99,7 @@ const viewAllEmployees = () => {
 const addDepartment = () => {
     inquirer.prompt([
         {
+            type: 'input',
             name: 'name',
             message: 'What is the name of the department?'
         }
@@ -150,10 +151,12 @@ const addRole = () => {
             // prompt user for role information
             inquirer.prompt([
                 {
+                    type: 'input',
                     name: 'title',
                     message: 'What is the name of the role?'
                 },
                 {
+                    type: 'input',
                     name: 'salary',
                     message: 'What is the salary of the role?'
                 },
@@ -176,10 +179,12 @@ const addRole = () => {
 const addEmployee = () => {
     inquirer.prompt([
         {
+            type: 'input',
             name: 'first_name',
             message: "What is the employee's first name?"
         },
         {
+            type: 'input',
             name: 'last_name',
             message: "What is the employee's last name?"
         }
