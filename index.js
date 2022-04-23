@@ -42,6 +42,9 @@ const mainPrompts = () => {
                 case 'Add a department':
                     addDepartment();
                     break;
+                case 'Delete a department':
+                    deleteDepartment();
+                    break;
                 case 'Add a role':
                     addRole();
                     break;
@@ -104,6 +107,30 @@ const addDepartment = () => {
         let name = res;
         db.addDepartment(name)
             .then(() => console.log(`Added ${name.name} to the database successfully!`))
+            .then(() => mainPrompts());
+    });
+};
+
+// function for delete a department
+const deleteDepartment = () => {
+    db.findAllDepartments()
+        .then(([rows]) => {
+            let departments = rows;
+            const departmentNames = departments.map(({ id, department }) => ({
+                name: department,
+                value: id
+            }));
+
+            inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'department',
+                    message: 'Which department would you like to remove?',
+                    choices: departmentNames
+                }
+            ])
+            .then(res => db.deleteDepartment(res.department))
+            .then(() => console.log('Removed department from database successfully!'))
             .then(() => mainPrompts());
     });
 };
