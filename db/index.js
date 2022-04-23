@@ -43,6 +43,11 @@ class DB {
         return this.connection.promise().query("INSERT INTO role SET ?", role);
     };
 
+    // delete role method
+    deleteRole(roleId) {
+        return this.connection.promise().query("DELETE FROM role WHERE id = ?", roleId);
+    };
+
     // add employee method
     addEmployee(employee) {
         return this.connection.promise().query("INSERT INTO employee SET ?", employee);
