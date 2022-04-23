@@ -17,6 +17,7 @@ const mainPrompts = () => {
                     'View all roles',
                     'View all employees',
                     'Add a department',
+                    'Delete a department',
                     'Add a role',
                     'Add an employee',
                     "Update an employee's role",
