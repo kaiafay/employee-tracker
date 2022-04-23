@@ -135,7 +135,7 @@ const deleteDepartment = () => {
                 }
             ])
             .then(res => db.deleteDepartment(res.department))
-            .then(() => console.log('Removed department from database successfully!'))
+            .then(() => console.log('Removed department from the database successfully!'))
             .then(() => mainPrompts());
     });
 };
@@ -179,6 +179,30 @@ const addRole = () => {
         });
 };
 
+// function for delete a role
+const deleteRole = () => {
+    db.findAllRoles()
+        .then(([rows]) => {
+            let roles = rows;
+            const roleNames = roles.map(({ id, job_title }) => ({
+                name: job_title,
+                value: id
+            }));
+
+            inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'role',
+                    message: 'Which role would you like to remove?',
+                    choices: roleNames
+                }
+            ])
+            .then(res => db.deleteRole(res.role))
+            .then(() => console.log('Removed role from the database successfully!'))
+            .then(() => mainPrompts());
+    });  
+};
+
 // function for add an employee
 const addEmployee = () => {
     inquirer.prompt([
@@ -204,6 +228,7 @@ const addEmployee = () => {
                     name: job_title,
                     value: id
                 }));
+
                 inquirer.prompt([
                     {
                         type: 'list',
